@@ -99,5 +99,5 @@ echo -e "$config" >> /etc/haproxy/haproxy.cfg
 
 
 sudo systemctl enable --now keepalived
-sudo systemctl enable haproxy && systemctl restart haproxy
+sudo systemctl enable haproxy && sudo systemctl restart haproxy
 echo "bye"
