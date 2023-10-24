@@ -96,3 +96,4 @@ done
 
 # Save the configuration to a file
 echo -e "$config" >> /etc/haproxy/haproxy.cfg
+echo "bye"
