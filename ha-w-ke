@@ -54,7 +54,7 @@ vrrp_instance VI_1 {
         auth_pass liesdfged
     }
     virtual_ipaddress {
-        $IP
+        $IP/24
     }
     track_script {
         check_apiserver
@@ -80,7 +80,6 @@ backend kubernetes-backend
   mode tcp
   option ssl-hello-chk
   balance roundrobin
-
 EOF
 
 # Get the number of servers to create
@@ -91,13 +90,14 @@ config=""
 for (( i=1; i<=$num_servers; i++ ))
 do
     read -p "Enter the ip addres of kubernetes master$i: " MIP
-    config+="    server kmaster$i $MIP:6443 check fall 3 rise 2\n"
+    config+="  server kmaster$i $MIP:6443 check fall 3 rise 2\n"
 done
 
 # Save the configuration to a file
 echo -e "$config" >> /etc/haproxy/haproxy.cfg
 
+systemctl stop haproxy
 
-sudo systemctl enable --now keepalived
-sudo systemctl enable haproxy && sudo systemctl restart haproxy
-echo "bye"
+systemctl enable --now keepalived
+
+systemctl enable haproxy && systemctl restart haproxy
