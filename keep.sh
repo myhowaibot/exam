@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sudo apt install keepalived -y
 
@@ -25,10 +25,6 @@ read -p "Enter your network inteface: " NET
 read -p "Enter your ip: " VIP
 
 
-read -p "Enter your prioty: " PR
-
-
-read -p "Enter your state MASTER/BACKUP: " STATE
 
 
 echo "making a check file"
@@ -65,10 +61,10 @@ do
 done
 
 
-echo -e "vrrp_script check_apiserver {\n  script '/etc/keepalived/check_apiserver.sh'\n  interval 1\n  timeout 1\n  fall 4\n  rise 2\n  weight -2\n}\n\nvrrp_instance VI_1 {\n    state $STATE\n    interface $NET\n    virtual_router_id 60\n    priority $PR\n    advert_int 3\n    unicast_src_ip $VIP\n    unicast_peer {\n  $configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n    track_script {\n        check_apiserver\n    }\n}\n"
+echo -e "vrrp_script check_apiserver {\n  script '/etc/keepalived/check_apiserver.sh'\n  interval 1\n  timeout 1\n  fall 4\n  rise 2\n  weight -2\n}\n\nvrrp_instance VI_1 {\n    state BACKUP\n    interface $NET\n    virtual_router_id 60\n    priority 100\n    advert_int 3\n    unicast_src_ip $VIP\n    unicast_peer {\n$configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n    track_script {\n        check_apiserver\n    }\n}\n"
 if yrn; then
-    echo -e "vrrp_script check_apiserver {\n  script '/etc/keepalived/check_apiserver.sh'\n  interval 1\n  timeout 1\n  fall 4\n  rise 2\n  weight -2\n}\n\nvrrp_instance VI_1 {\n    state $STATE\n    interface $NET\n    virtual_router_id 60\n    priority $PR\n    advert_int 3\n    unicast_src_ip $VIP\n    unicast_peer {\n  $configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n    track_script {\n        check_apiserver\n    }\n}\n"  > /etc/keepalived/keepalived.conf;
-    sudo systemctl enable --now keepalived && watch systemctl status keepalived 
+    echo -e "vrrp_script check_apiserver {\n  script '/etc/keepalived/check_apiserver.sh'\n  interval 1\n  timeout 1\n  fall 4\n  rise 2\n  weight -2\n}\n\nvrrp_instance VI_1 {\n    state BACKUP\n    interface $NET\n    virtual_router_id 60\n    priority 100\n    advert_int 3\n    unicast_src_ip $VIP\n    unicast_peer {\n$configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n    track_script {\n        check_apiserver\n    }\n}\n"  > /etc/keepalived/keepalived.conf;
+    sudo systemctl enable --now keepalived && jurnalctl -flu keepalived
 else
     echo "bye";
 fi
