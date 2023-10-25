@@ -74,9 +74,8 @@ sudo systemctl restart containerd
 
 
 #sudo sed -i 's/nameserver .*/nameserver 178.22.122.100/' /etc/resolv.conf
-
-curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-sudo apt-get install apt-transport-https --yes
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-sudo apt-get update
-sudo apt-get install helm
+sudo wget -c https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz
+sudo tar -xzvf helm-v3.9.0-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /bin/helm
+sudo chmod +x /bin/helm
+sudo rm -rf helm-v3.9.0-linux-amd64.tar.gz linux-amd64
