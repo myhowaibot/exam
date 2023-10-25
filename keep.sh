@@ -28,7 +28,7 @@ read -p "Enter your ip: " VIP
 read -p "Enter your prioty: " PR
 
 
-read -p "Enter your state master/slave: " STATE
+read -p "Enter your state MASTER/BACKUP: " STATE
 
 
 echo "making a check file"
