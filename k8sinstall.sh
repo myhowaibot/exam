@@ -49,9 +49,11 @@ sudo sysctl -p
 # backup dns setup & Set 403 DNS
 cp /etc/resolv.conf /etc/resolv.conf.bak
 # added at the end
-sudo sed -i 's/nameserver .*/nameserver 10.202.10.202/' /etc/resolv.conf
 sudo systemctl stop systemd-resolved.service
 sudo systemctl disable systemd-resolved.service
+
+sudo sed -i 's/nameserver .*/nameserver 10.202.10.202/' /etc/resolv.conf
+
 
 # install kubeadm kubelet kubectl
 sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl
