@@ -5,7 +5,7 @@ read -p "Enter one of your haed master ip: " IP
 
 read -p "Enter one of your master ip: " RIP
 
-kubeadm init --control-plane-endpoint "$IP:6443" --upload-certs --apiserver-advertise-address $RIP --pod-network-cidr 192.168.0.0/16 --image-repository docker.iranrepo.ir/kubesphere --kubernetes-version 1.27.1 
+kubeadm init --control-plane-endpoint "$IP:6443" --upload-certs --apiserver-advertise-address $RIP --pod-network-cidr 192.168.0.0/16 --image-repository docker.arvancloud.ir/kubesphere --kubernetes-version 1.27.1 
 
 
 mkdir -p $HOME/.kube
