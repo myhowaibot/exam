@@ -1,5 +1,17 @@
 #!/bin/bash
 
+yrn() {
+    while true; do
+        read -p "Do you want to proceed? (y/n) " yn
+        case $yn in
+            [Yy]* ) return 0;;
+            [Nn]* ) return 1;;
+            * ) echo "Please answer y or n.";;
+        esac
+    done
+}
+
+
 sudo apt install --no-install-recommends software-properties-common -y
 
 sudo add-apt-repository ppa:vbernat/haproxy-2.4 -y
