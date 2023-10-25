@@ -28,7 +28,7 @@ read -p "Enter your ip: " VIP
 read -p "Enter your prioty: " PR
 
 
-read -p "Enter your state master/slave: " STATE
+read -p "Enter your state MASTER/BACKUP: " STATE
 
 
 echo "making a check file"
@@ -54,7 +54,7 @@ chmod +x /etc/keepalived/check_apiserver.sh
 echo "setting up the keepalived config file"
 
 
-read -p "Enter the number of keepalived and haproxy: " nm_servers
+read -p "Enter the number of keepalived: " nm_servers
 
 config=""
 
