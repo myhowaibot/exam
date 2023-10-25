@@ -50,14 +50,11 @@ done
 
 # Save the configuration to a file
 echo -e "$config" >> /tmp/uguyfgouf
+cat /tmp/uguyfgouf    
 if yrn; then
-    cat /tmp/uguyfgouf >> /etc/haproxy/haproxy.cfg
-    cat /etc/haproxy/haproxy.cfg
-    if yrn; then
         cat /tmp/uguyfgouf >> /etc/haproxy/haproxy.cfg    
         sudo systemctl stop haproxy
         sudo systemctl enable haproxy && sudo systemctl restart haproxy && watch systemctl status haproxy
-    fi
 else
     echo "bye";
 fi
