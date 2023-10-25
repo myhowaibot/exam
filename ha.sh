@@ -57,6 +57,7 @@ if yrn; then
         cat /tmp/uguyfgouf >> /etc/haproxy/haproxy.cfg    
         sudo systemctl stop haproxy
         sudo systemctl enable haproxy && sudo systemctl restart haproxy && watch systemctl status haproxy
+    fi
 else
     echo "bye";
 fi
