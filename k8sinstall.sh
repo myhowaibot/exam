@@ -56,8 +56,10 @@ sudo systemctl disable systemd-resolved.service
 # install kubeadm kubelet kubectl
 sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo mkdir -m 775 /etc/apt/keyrings/ && sudo touch /etc/apt/keyrings/kubernetes-apt-keyring.gpg 
-sudo curl -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg -fsSL https://pkgs.k8s.io/core:/stable:/v1.27/deb/Release.key && sudo gpg --dearmor /etc/apt/keyrings/kubernetes-apt-keyring.gpg && echo "sucsess"
-sudo echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg.gpg] https://pkgs.k8s.io/core:/stable:/v1.27/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list && echo "sucsess"
+sudo curl -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg -fsSL https://pkgs.k8s.io/core:/stable:/v1.27/deb/Release.key && sudo gpg --dearmor /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+cat /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg.gpg] https://pkgs.k8s.io/core:/stable:/v1.27/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo cat /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update && sudo apt-get install -y kubeadm
 
 # pull images with kubeadm
@@ -71,3 +73,8 @@ sudo systemctl restart containerd
 
 #sudo sed -i 's/nameserver .*/nameserver 178.22.122.100/' /etc/resolv.conf
 
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
