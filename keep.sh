@@ -1,7 +1,6 @@
 #!/bin/sh
 
-
-function yrn {
+yrn() {
     while true; do
         read -p "Do you want to proceed? (y/n) " yn
         case $yn in
