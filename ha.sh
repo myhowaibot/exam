@@ -19,7 +19,7 @@ echo "creating the haproxy config files"
 
 read -p "Enter your floating ip: " IP
 
-touch /tmp/uguyfgouf
+sudo touch /tmp/uguyfgouf
 
 cat >> /tmp/uguyfgouf <<EOF
 
@@ -52,7 +52,7 @@ done
 echo -e "$config" >> /tmp/uguyfgouf
 cat /tmp/uguyfgouf    
 if yrn; then
-        cat /tmp/uguyfgouf >> /etc/haproxy/haproxy.cfg  && rm -rf /tmp/uguyfgouf
+        sudo cat /tmp/uguyfgouf >> /etc/haproxy/haproxy.cfg  && sudo rm -rf /tmp/uguyfgouf
         sudo systemctl stop haproxy
         sudo systemctl enable haproxy && sudo systemctl restart haproxy && watch systemctl status haproxy
 else
