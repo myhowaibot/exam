@@ -52,7 +52,7 @@ done
 echo -e "$config" >> /tmp/uguyfgouf
 cat /tmp/uguyfgouf    
 if yrn; then
-        cat /tmp/uguyfgouf >> /etc/haproxy/haproxy.cfg    
+        cat /tmp/uguyfgouf >> /etc/haproxy/haproxy.cfg  && rm -rf /tmp/uguyfgouf
         sudo systemctl stop haproxy
         sudo systemctl enable haproxy && sudo systemctl restart haproxy && watch systemctl status haproxy
 else
