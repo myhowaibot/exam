@@ -64,16 +64,17 @@ sudo echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg.gpg] http
 sudo cat /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update && sudo apt-get install -y kubeadm
 
+sudo sed -i 's/nameserver .*/nameserver 8.8.8.8/' /etc/resolv.conf
+
 # pull images with kubeadm
-kubeadm config images pull  --image-repository docker.iranrepo.ir/kubesphere --kubernetes-version 1.27.1 
+sudo kubeadm config images pull  --image-repository docker.arvancloud.ir/kubesphere --kubernetes-version 1.27.1 
 
 
 # Changing the sandbox image
-sudo sed -i '/sandbox_image/s/\"registry.k8s.io\/pause:3.8"/\"docker.iranrepo.ir\/kubesphere\/pause:3.9"/' /etc/containerd/config.toml
+sudo sed -i '/sandbox_image/s/\"registry.k8s.io\/pause:3.8"/\"docker.arvancloud.ir\/kubesphere\/pause:3.9"/' /etc/containerd/config.toml
 sudo systemctl restart containerd
 
 
-#sudo sed -i 's/nameserver .*/nameserver 178.22.122.100/' /etc/resolv.conf
 sudo wget -c https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz
 sudo tar -xzvf helm-v3.9.0-linux-amd64.tar.gz
 sudo mv linux-amd64/helm /bin/helm
