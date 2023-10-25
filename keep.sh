@@ -56,7 +56,7 @@ echo "setting up the keepalived config file"
 
 read -p "Enter the number of keepalived: " nm_servers
 
-config=""
+configs=""
 
 for (( i=1; i<=$nm_servers; i++ ))
 do
