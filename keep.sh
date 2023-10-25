@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sudo apt install keepalived -y
+
 yrn() {
     while true; do
         read -p "Do you want to proceed? (y/n) " yn
