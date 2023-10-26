@@ -1,3 +1,6 @@
+https://github.com/SalehBorhani/kubeadm-k8s
+
+
 to install k8s
 
 wget https://raw.githubusercontent.com/myhowaibot/exam/main/k8sinstall.sh && sudo chmod +x k8sinstall.sh && sudo ./k8sinstall.sh
