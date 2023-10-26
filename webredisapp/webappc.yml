@@ -1,0 +1,7 @@
+services:
+  web:
+    image: "webapp:01"
+    ports:
+      - "80:5000"
+  redis:
+    image: "docker.arvancloud.ir/redis:alpine"
