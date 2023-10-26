@@ -30,21 +30,6 @@ read -p "Enter your PR: " PR
 
 
 
-echo "making a check file"
-
-cat >> /etc/keepalived/check_apiserver.sh <<EOF
-
-errorExit() {
-  echo "*** $@" 1>&2
-  exit 1
-}
-
-curl --silent --max-time 2 --insecure https://localhost:6443/ -o /dev/null || errorExit "Error GET https://localhost:6443/"
-if ip addr | grep -q $IP; then
-  curl --silent --max-time 2 --insecure https://$IP:6443/ -o /dev/null || errorExit "Error GET https://$IP:6443/"
-fi
-EOF
-
 
 chmod +x /etc/keepalived/check_apiserver.sh
 
@@ -64,12 +49,11 @@ do
 done
 
 
-echo -e "vrrp_script check_apiserver {\n  script '/etc/keepalived/check_apiserver.sh'\n  interval 1\n  timeout 1\n  fall 4\n  rise 2\n  weight -2\n}\n\nvrrp_instance VI_1 {\n    state BACKUP\n    interface $NET\n    virtual_router_id 60\n    priority $PR\n    advert_int 1\n    unicast_src_ip $VIP\n    unicast_peer {\n$configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n    track_script {\n        check_apiserver\n    }\n}\n"
+echo -e "vrrp_instance VI_1 {\n    state BACKUP\n    interface $NET\n    virtual_router_id 60\n    priority $PR\n    advert_int 1\n    unicast_src_ip $VIP\n    unicast_peer {\n$configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n}\n"
 if yrn; then
-    echo -e "vrrp_script check_apiserver {\n  script '/etc/keepalived/check_apiserver.sh'\n  interval 1\n  timeout 1\n  fall 4\n  rise 2\n  weight -2\n}\n\nvrrp_instance VI_1 {\n    state BACKUP\n    interface $NET\n    virtual_router_id 60\n    priority $PR\n    advert_int 1\n    unicast_src_ip $VIP\n    unicast_peer {\n$configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n    track_script {\n        check_apiserver\n    }\n}\n"  > /etc/keepalived/keepalived.conf;
+    echo -e "vrrp_instance VI_1 {\n    state BACKUP\n    interface $NET\n    virtual_router_id 60\n    priority $PR\n    advert_int 1\n    unicast_src_ip $VIP\n    unicast_peer {\n$configs    }\n    authentication {\n        auth_type PASS\n        auth_pass liesdfged\n    }\n    virtual_ipaddress {\n        $IP/24\n    }\n}\n" > /etc/keepalived/keepalived.conf;
     sudo systemctl enable --now keepalived && journalctl -flu keepalived
 else
     echo "bye";
 fi
  
-
