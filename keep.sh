@@ -30,11 +30,6 @@ read -p "Enter your PR: " PR
 
 
 
-
-chmod +x /etc/keepalived/check_apiserver.sh
-
-
-
 echo "setting up the keepalived config file"
 
 
