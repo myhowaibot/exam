@@ -19,3 +19,9 @@ wget https://raw.githubusercontent.com/myhowaibot/exam/main/keep.sh && sudo chmo
 to install haproxy
 
 wget https://raw.githubusercontent.com/myhowaibot/exam/main/ha.sh && sudo chmod +x ha.sh && sudo ./ha.sh
+
+
+https://github.com/justmeandopensource/percona/blob/master/INSTALL_Ubuntu18.md
+
+
+https://github.com/k0sproject/k0sctl/issues/178
